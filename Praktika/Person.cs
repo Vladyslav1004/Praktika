@@ -15,6 +15,5 @@ namespace Praktika
         public string group;
         public bool secondHiEducation;
         public bool finishedSchool;
-
     }
 }

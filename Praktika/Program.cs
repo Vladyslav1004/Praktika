@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.Design;
+using System.Configuration;
 using System.Data.SqlTypes;
 using System.Globalization;
 using System.Linq;
@@ -14,11 +15,11 @@ namespace Praktika
     {
         static void Main(string[] args)
         {
-            List<Students> studentsList = new List<Students>();
-            List<Teachers> teachersList = new List<Teachers>();
+            List<Student> studentsList = new List<Student>();
+            List<Teacher> teachersList = new List<Teacher>();
 
-            Students students = new Students();
-            Teachers teachers = new Teachers();
+            Student students = new Student();
+            Teacher teachers = new Teacher();
 
             Data.HardCodeStudents(studentsList);
             Data.HardCodeTeachers(teachersList);
@@ -50,13 +51,14 @@ namespace Praktika
                 else
                 {
                     Console.WriteLine("Invalid symbol, try again)");
+                    str = Console.ReadLine();
                 }
             }
 
-            List<Students> group122 = Utils.Grouping<Students>(studentsList, true);
-            List<Students> group123 = Utils.Grouping<Students>(studentsList, false);
-            List<Teachers> group122T = Utils.Grouping<Teachers>(teachersList, true);
-            List<Teachers> group123T = Utils.Grouping<Teachers>(teachersList, false);
+            List<Student> group122 = Utils.Grouping<Student>(studentsList, true);
+            List<Student> group123 = Utils.Grouping<Student>(studentsList, false);
+            List<Teacher> group122T = Utils.Grouping<Teacher>(teachersList, true);
+            List<Teacher> group123T = Utils.Grouping<Teacher>(teachersList, false);
 
             group122 = students.ValidStudent(group122);
             group123 = students.ValidStudent(group123);
@@ -75,38 +77,74 @@ namespace Praktika
 
             Console.WriteLine("Do you want to get information about any of teachers?");
             str = Console.ReadLine();
-            if (str == "y" || str == "Y")
+            bool isAddInformUsed = false;
+            while (isAddInformUsed == false)
             {
-                Console.WriteLine("Enter group num");
-                str = Console.ReadLine();
-
-                if (str == "122")
+                if (str == "y" || str == "Y")
                 {
-                    Console.WriteLine("Enter teacher`s ID");
-                    int ID = Convert.ToInt32(Console.ReadLine());
-
-                    for (int i = 0; i < group122T.Count; i++)
+                    while (true)
                     {
-                        
-                        if (group122T[i].id == ID)
+                        Console.WriteLine("Enter group num");
+                        str = Console.ReadLine();
+
+                        int ID = -1;
+                        if (str == "122" || str == "123")
                         {
-                           Utils.AInformation(group122T, group122, ID);
+                            while (true)
+                            {
+                                try
+                                {
+                                    Console.WriteLine("Enter teacher`s ID");
+                                    ID = Convert.ToInt32(Console.ReadLine());
+                                    break;
+                                }
+                                catch (FormatException)
+                                {
+                                    Console.WriteLine("Enter the right num!");
+                                }
+                            }
+                        }
+                        else
+                        {
+                            Console.WriteLine("Write corect number");
+                        }
+
+                        if (str == "122")
+                        {
+                            for (int i = 0; i < group122T.Count; i++)
+                            {
+                                if (group122T[i].id == ID)
+                                {
+                                    Utils.AInformation(group122T, group122, ID);
+                                    isAddInformUsed = true;
+                                    break;
+                                }
+                            }
+                        }
+                        else if (str == "123")
+                        {
+                            for (int i = 0; i < group123T.Count; i++)
+                            {
+                                if (group123T[i].id == ID)
+                                {
+                                    Utils.AInformation(group123T, group123, ID);
+                                    isAddInformUsed = true;
+                                    break;
+                                }
+                            }
                         }
                     }
                 }
-                else if (str == "123")
+                else if (str == "n" || str == "N")
                 {
-                    Console.WriteLine("Enter teacher`s ID");
-                    int ID = Convert.ToInt32(Console.ReadLine());
-
-                    for (int i = 0; i < group123T.Count; i++)
-                    {
-                        if (group123T[i].id == ID)
-                        {
-                            Utils.AInformation(group123T, group123, ID);
-                        }
-                    }
-                }            
+                    Console.WriteLine("Okey, moving to the next point :)");
+                    isAddInformUsed = true;
+                }
+                else
+                {
+                    Console.WriteLine("Wrong character, try again :(");
+                    str = Console.ReadLine();
+                }
             }
 
             Console.WriteLine("Do you want set marks to students? :)");
@@ -118,14 +156,17 @@ namespace Praktika
 
                 if (str == "122")
                 {
-
-                    Teachers.SetMark(group122);
-
+                    Teacher.SetMark(group122);
                 }
                 else if (str == "123")
                 {
-                    Teachers.SetMark(group123);
+                    Teacher.SetMark(group123);
                 }
+            }
+            else if (str == "n" || str == "N")
+            {
+                Console.WriteLine("Okey, maybe we will do it next time :)");
+                isAddInformUsed = true;
             }
             Console.ReadLine();
         }

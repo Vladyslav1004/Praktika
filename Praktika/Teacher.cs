@@ -7,9 +7,9 @@ using System.Threading.Tasks;
 
 namespace Praktika
 {
-    public class Teachers : Person
+    public class Teacher : Person
     {
-        public static void SetMark<T>(List<T> Student) where T : Students
+        public static void SetMark<T>(List<T> Student) where T : Student
         {
             while (true)
             {

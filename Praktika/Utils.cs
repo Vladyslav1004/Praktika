@@ -68,7 +68,7 @@ namespace Praktika
             }
         }
 
-        static public void PrintStudents<T>(List<T> student) where T : Students
+        static public void PrintStudents<T>(List<T> student) where T : Student
         {
             for (int i = 0; i < student.Count; i++)
             {

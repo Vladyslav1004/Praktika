@@ -6,16 +6,16 @@ using System.Threading.Tasks;
 
 namespace Praktika
 {
-    public class Students : Person
+    public class Student : Person
     {
         public bool canStudy;
         public int countMark;
         public int sumMark;
         public int medianMark;
 
-        public List<Students> ValidStudent(List<Students> students)
+        public List<Student> ValidStudent(List<Student> students)
         {
-            List<Students> validStudents = new List<Students>();
+            List<Student> validStudents = new List<Student>();
             int count = 0;
             for (int i = 0; i < students.Count; i++)
             {
