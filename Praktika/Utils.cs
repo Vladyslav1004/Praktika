@@ -8,7 +8,7 @@ namespace Praktika
 {
     public class Utils
     {
-        static public void AInformation<TTeacher, TStudent>(List<TTeacher> teachers, List<TStudent> students, int teachersID) where TTeacher : Person where TStudent : Person
+        static public void AdditionalInformation<TTeacher, TStudent>(List<TTeacher> teachers, List<TStudent> students, int teachersID) where TTeacher : Person where TStudent : Person
         {
             Console.WriteLine("=== Working with ===");
             for (int i = 0; i < teachers.Count; i++)
@@ -26,7 +26,7 @@ namespace Praktika
             }
         }
 
-        static public List<T> Grouping<T>(List<T> students, bool isFirst) where T : Person
+        static public List<T> GetGroups<T>(List<T> students, bool isFirst) where T : Person
         {
             List<T> group122 = new List<T>();
             List<T> group123 = new List<T>();

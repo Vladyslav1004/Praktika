@@ -8,7 +8,7 @@ namespace Praktika
 {
     abstract public class Person
     {
-        public int id;
+        public Guid id { get; set; }
         public string firstName;
         public string lastName;
         public int age;
