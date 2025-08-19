@@ -12,7 +12,7 @@ using System.Threading.Tasks;
 namespace Praktika
 {
     internal class Program
-    {
+    { // Пробую на ноуті
         static void Main(string[] args)
         {
             List<Student> students = Data.Students;
