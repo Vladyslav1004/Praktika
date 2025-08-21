@@ -24,13 +24,6 @@ namespace Praktika
                     student.medianMark = student.sumMark / student.countMark;
                 }
 
-                Student.Sort((s1, s2) => s2.medianMark.CompareTo(s1.medianMark));
-
-                for (int i = 0; i < Student.Count; i++)
-                {
-                    Student[i].id = i + 1;
-                }
-
                 Console.WriteLine("=== Results ===");
                 Utils.PrintStudents(Student);
 

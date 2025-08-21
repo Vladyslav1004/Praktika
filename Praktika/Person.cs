@@ -12,7 +12,7 @@ namespace Praktika
         public string firstName;
         public string lastName;
         public int age;
-        public string group;
+        public Data.Groups group { get; set; }
         public bool secondHiEducation;
         public bool finishedSchool;
     }

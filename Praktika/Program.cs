@@ -8,6 +8,7 @@ using System.Linq;
 using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using System.Threading.Tasks;
+using static Praktika.Data;
 
 namespace Praktika
 {
@@ -28,6 +29,7 @@ namespace Praktika
             string str = Console.ReadLine();
             while (true)
             {
+                bool isAdded = false;
                 if (str == "y" || str == "Y")
                 {
                     List<Student> studentsToAdd = new List<Student>();
@@ -92,137 +94,122 @@ namespace Praktika
                         }
 
                         Console.Write("Enter his/her group: ");
-                        s.group = Console.ReadLine();
+                        str = Console.ReadLine();
+                        switch (str)
+                        {
+                            case "122":
+                                s.group = Groups.Group122;
+                                isAdded = true;
+                                break;
+                            case "123":
+                                s.group = Groups.Group123;
+                                isAdded = true;
+                                break;
+                            default:
+                                Console.WriteLine("Invalid group, setting default Group122");
+                                s.group = Groups.Group122;
+                                isAdded = true;
+                                break;
+                        }
 
                         studentsToAdd.Add(s);
                     }
+                    AddStudents(studentsToAdd);
+                    break;
                 }
                 else if (str == "n" || str == "N")
                 {
                     Console.WriteLine("Okey, moving to the next point");
                     break;
                 }
-                else
+                else if (isAdded == false)
                 {
                     Console.WriteLine("Invalid symbol, try again)");
                     str = Console.ReadLine();
                 }
             }
 
-            //List<Student> group122 = Utils.GetGroups<Student>(studentsList, true);
-            //List<Student> group123 = Utils.GetGroups<Student>(studentsList, false);
-            //List<Teacher> group122T = Utils.GetGroups<Teacher>(teachersList, true);
-            //List<Teacher> group123T = Utils.GetGroups<Teacher>(teachersList, false);
+            List<Student> group122 = Utils.GetGroups<Student>(students, Data.Groups.Group122);
+            List<Student> group123 = Utils.GetGroups<Student>(students, Data.Groups.Group123);
+            List<Teacher> group122T = Utils.GetGroups<Teacher>(teachers, Data.Groups.Group122T);
+            List<Teacher> group123T = Utils.GetGroups<Teacher>(teachers, Data.Groups.Group123T);
 
-            //group122 = students.ValidStudent(group122);
-            //group123 = students.ValidStudent(group123);
+            Student.ValidStudent(group122);
+            Student.ValidStudent(group123);
 
-            //Console.WriteLine("=== Teachers 122 ===");
-            //Utils.PrintPeople(group122T);
 
-            //Console.WriteLine("=== Valid Students 122 ===");
-            //Utils.PrintPeople(group122);
+            Console.WriteLine("=== Teachers 122 ===");
+            Utils.PrintPeople(group122T);
 
-            //Console.WriteLine("=== Teachers 123 ===");
-            //Utils.PrintPeople(group123T);
+            Console.WriteLine("=== Valid Students 122 ===");
+            Utils.PrintPeople(group122);
 
-            //Console.WriteLine("=== Valid Students 123 ===");
-            //Utils.PrintPeople(group123);
+            Console.WriteLine("=== Teachers 123 ===");
+            Utils.PrintPeople(group123T);
 
-            //Console.WriteLine("Do you want to get information about any of teachers?");
-            //str = Console.ReadLine();
-            //bool isAddInformUsed = false;
-            //while (isAddInformUsed == false)
-            //{
-            //    if (str == "y" || str == "Y")
-            //    {
-            //        while (true)
-            //        {
-            //            Console.WriteLine("Enter group num");
-            //            str = Console.ReadLine();
+            Console.WriteLine("=== Valid Students 123 ===");
+            Utils.PrintPeople(group123);
 
-            //            int ID = -1;
-            //            if (str == "122" || str == "123")
-            //            {
-            //                while (true)
-            //                {
-            //                    try
-            //                    {
-            //                        Console.WriteLine("Enter teacher`s ID");
-            //                        ID = Convert.ToInt32(Console.ReadLine());
-            //                        break;
-            //                    }
-            //                    catch (FormatException)
-            //                    {
-            //                        Console.WriteLine("Enter the right num!");
-            //                    }
-            //                }
-            //            }
-            //            else
-            //            {
-            //                Console.WriteLine("Write corect number");
-            //            }
+            Console.WriteLine("Do you want to get information about students or teachers?");
+            str = Console.ReadLine();
+            bool isAddInformUsed = false;
+            while (isAddInformUsed == false)
+            {
+                if (str == "y" || str == "Y")
+                {
+                    string firstName, lastName;
+                    while (true)
+                    {
+                        Console.WriteLine("Enter first name");
+                        firstName = Console.ReadLine();
 
-            //            if (str == "122")
-            //            {
-            //                for (int i = 0; i < group122T.Count; i++)
-            //                {
-            //                    if (group122T[i].id == ID)
-            //                    {
-            //                        Utils.AdditionalInformation(group122T, group122, ID);
-            //                        isAddInformUsed = true;
-            //                        break;
-            //                    }
-            //                }
-            //            }
-            //            else if (str == "123")
-            //            {
-            //                for (int i = 0; i < group123T.Count; i++)
-            //                {
-            //                    if (group123T[i].id == ID)
-            //                    {
-            //                        Utils.AdditionalInformation(group123T, group123, ID);
-            //                        isAddInformUsed = true;
-            //                        break;
-            //                    }
-            //                }
-            //            }
-            //        }
-            //    }
-            //    else if (str == "n" || str == "N")
-            //    {
-            //        Console.WriteLine("Okey, moving to the next point :)");
-            //        isAddInformUsed = true;
-            //    }
-            //    else
-            //    {
-            //        Console.WriteLine("Wrong character, try again :(");
-            //        str = Console.ReadLine();
-            //    }
-            //}
+                        Console.WriteLine("Enter last name");
+                        lastName = Console.ReadLine();
 
-            //Console.WriteLine("Do you want set marks to students? :)");
-            //str = Console.ReadLine();
-            //if (str == "y" || str == "Y")
-            //{
-            //    Console.WriteLine("Enter group num");
-            //    str = Console.ReadLine();
+                        Utils.AdditionalInformation(teachers, students, firstName, lastName);
+                        Console.WriteLine("You want to do it again?");
+                        str = Console.ReadLine();
+                        if (str != "y" && str != "Y")
+                        {
+                            break;
+                        }
+                    }
+                    break;
+                }
+                else if (str == "n" || str == "N")
+                {
+                    Console.WriteLine("Okey, moving to the next point :)");
+                    isAddInformUsed = true;
+                }
+                else
+                {
+                    Console.WriteLine("Wrong character, try again :(");
+                    str = Console.ReadLine();
+                }
+            }
 
-            //    if (str == "122")
-            //    {
-            //        Teacher.SetMark(group122);
-            //    }
-            //    else if (str == "123")
-            //    {
-            //        Teacher.SetMark(group123);
-            //    }
-            //}
-            //else if (str == "n" || str == "N")
-            //{
-            //    Console.WriteLine("Okey, maybe we will do it next time :)");
-            //    isAddInformUsed = true;
-            //}
-            //Console.ReadLine();
+            Console.WriteLine("Do you want set marks to students? :)");
+            str = Console.ReadLine();
+            if (str == "y" || str == "Y")
+            {
+                Console.WriteLine("Enter group num");
+                str = Console.ReadLine();
+
+                if (str == "122")
+                {
+                    Teacher.SetMark(group122);
+                }
+                else if (str == "123")
+                {
+                    Teacher.SetMark(group123);
+                }
+            }
+            else if (str == "n" || str == "N")
+            {
+                Console.WriteLine("Okey, maybe we will do it next time :)");
+                isAddInformUsed = true;
+            }
+            Console.ReadLine();
         }
     }
 }

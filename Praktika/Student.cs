@@ -8,26 +8,20 @@ namespace Praktika
 {
     public class Student : Person
     {
-        public bool canStudy;
+        public bool isValid;
         public int countMark;
         public int sumMark;
         public int medianMark;
 
-        public List<Student> ValidStudent(List<Student> students)
+        public static void ValidStudent(List<Student> students)
         {
-            List<Student> validStudents = new List<Student>();
-            int count = 0;
             for (int i = 0; i < students.Count; i++)
             {
                 if (students[i].secondHiEducation == false && students[i].age >= 18 && students[i].finishedSchool == true)
                 {
-                    students[i].canStudy = true;
-                    validStudents.Add(students[i]);
-                    validStudents[count].id = count + 1;
-                    count++;
+                    students[i].isValid = true;
                 }
             }
-            return validStudents;
         }
 
         //public void Rating(List<Students> students)
