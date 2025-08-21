@@ -137,7 +137,6 @@ namespace Praktika
             Student.ValidStudent(group122);
             Student.ValidStudent(group123);
 
-
             Console.WriteLine("=== Teachers 122 ===");
             Utils.PrintPeople(group122T);
 

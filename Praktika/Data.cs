@@ -6,8 +6,6 @@ using System.Threading.Tasks;
 
 namespace Praktika
 {
-
-
     public class Data
     {
         public enum Groups

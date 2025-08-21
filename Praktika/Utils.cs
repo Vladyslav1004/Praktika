@@ -47,7 +47,7 @@ namespace Praktika
 
             foreach (var student in students)
             {
-                if (firstName == student.firstName && lastName == student.lastName)
+                if (firstName == student.firstName && lastName == student.lastName && student.isValid == true)
                 {
                     var teachersGroup = Data.Groups.Group122;
 
@@ -73,12 +73,20 @@ namespace Praktika
                     Console.WriteLine("=== Studiing with ===");
                     foreach (var student1 in students)
                     {
-                        if (student1.group == student.group && student1 != student)
+                        if (student1.group == student.group && student1 != student && student1.isValid == true)
                         {
                             Console.WriteLine($"ID: {student1.id}; FULL NAME: {student1.firstName} {student1.lastName}; AGE: {student1.age};");
                         }
                     }
                 }
+                else if (firstName == student.firstName && lastName == student.lastName && student.isValid != true)
+                {
+                    Console.WriteLine("Student is not valid, but okey)");
+
+                    Console.WriteLine($"ID: {student.id}; FULL NAME: {student.firstName} {student.lastName}; AGE: {student.age}; Second High Education {student.secondHiEducation}; Finshed school {student.finishedSchool}; is Valid {student.isValid};");
+                }
+
+
             }
         }
 

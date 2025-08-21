@@ -15,11 +15,15 @@ namespace Praktika
 
         public static void ValidStudent(List<Student> students)
         {
-            for (int i = 0; i < students.Count; i++)
+            for (int i = students.Count - 1; i >= 0; i--)
             {
                 if (students[i].secondHiEducation == false && students[i].age >= 18 && students[i].finishedSchool == true)
                 {
                     students[i].isValid = true;
+                }
+                else
+                {
+                    students.RemoveAt(i);
                 }
             }
         }
